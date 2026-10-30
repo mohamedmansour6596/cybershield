@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}CyberShield{% endblock %} | CyberShield</title>
+  <meta name="description" content="CyberShield analyses links locally and explains phishing risk indicators, without ever visiting the link.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="{{ url_for('index') }}">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Cyber<b>Shield</b></span>
+    </a>
+    <nav>
+      <a href="{{ url_for('index') }}" {% if request.endpoint == 'index' %}class="active"{% endif %}>Home</a>
+      <a href="{{ url_for('scanner') }}" {% if request.endpoint == 'scanner' %}class="active"{% endif %}>Scanner</a>
+      <a href="{{ url_for('dashboard') }}" {% if request.endpoint == 'dashboard' %}class="active"{% endif %}>Dashboard</a>
+      <a href="{{ url_for('guide') }}" {% if request.endpoint == 'guide' %}class="active"{% endif %}>Guide</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p><b>Educational tool.</b> CyberShield analyses risk indicators in the text of a link. It is not a guarantee that a link is safe or malicious. The link is never opened or visited.</p>
+    <p class="muted">CyberShield &middot; Cybersecurity awareness project</p>
+  </footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

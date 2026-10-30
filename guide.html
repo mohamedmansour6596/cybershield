@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Guide{% endblock %}
+{% block content %}
+<section class="container narrow">
+  <p class="eyebrow">Security guide</p>
+  <h1>How to spot a phishing link</h1>
+  <p class="lead">Phishing tricks people into entering passwords or payment details on a fake page. These are the signs CyberShield looks for, and what you should do.</p>
 
-</body>
-</html>
+  <div class="accordion">
+    <details open><summary>1. No HTTPS</summary><p>HTTPS encrypts the connection. A login page on plain <code>http://</code> is a red flag. Note that HTTPS alone does not prove a site is honest, because attackers can get free certificates too.</p></details>
+    <details><summary>2. IP address instead of a domain</summary><p>A link like <code>http://185.23.4.9/login</code> has no brand name. Real services use domain names.</p></details>
+    <details><summary>3. Urgent keywords</summary><p>Words such as <code>login</code>, <code>verify</code>, <code>update</code>, <code>suspend</code> and <code>secure</code> are used to create panic: "Your account will be closed!".</p></details>
+    <details><summary>4. Fake or stacked subdomains</summary><p>In <code>paypal.com.evil-site.xyz</code> the real domain is <code>evil-site.xyz</code>. Always read the domain from right to left, before the first single slash.</p></details>
+    <details><summary>5. The @ trick</summary><p>In <code>https://bank.com@evil.com</code> the browser goes to <code>evil.com</code>. Everything before @ is ignored.</p></details>
+    <details><summary>6. URL shorteners</summary><p>Short links such as bit.ly hide the destination. Use a link expander or ask the sender for the full link.</p></details>
+    <details><summary>7. Look-alike characters (Punycode)</summary><p>Domains that start with <code>xn--</code> can imitate brands using characters that look the same, like Cyrillic "а" instead of Latin "a".</p></details>
+    <details><summary>8. Risky TLDs and unusual ports</summary><p>Cheap endings like <code>.xyz</code>, <code>.top</code> or <code>.tk</code> are abused often. Ports such as <code>:8080</code> are rare on real login pages.</p></details>
+  </div>
+
+  <h2>What to do when you get a suspicious link</h2>
+  <ol class="steps">
+    <li>Do not click. Long-press or right-click and copy the link instead.</li>
+    <li>Check the sender through another channel (call them, or open the official app).</li>
+    <li>Analyse the link in the <a href="{{ url_for('scanner') }}">CyberShield scanner</a>.</li>
+    <li>Never enter passwords or OTP codes from a link you received. Type the official address yourself.</li>
+    <li>Enable two-factor authentication so a stolen password is not enough.</li>
+    <li>Report the message (WhatsApp / email provider) and delete it.</li>
+  </ol>
+
+  <div class="card note">
+    <h3>About this project's own security</h3>
+    <p>CyberShield never connects to the links you submit (prevents SSRF), validates all input, limits requests per client, uses CSRF tokens, escapes all output, uses parameterised SQL and sends strict security headers including a Content-Security-Policy.</p>
+  </div>
+</section>
+{% endblock %}
